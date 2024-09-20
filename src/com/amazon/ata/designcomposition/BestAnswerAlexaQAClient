@@ -1,0 +1,21 @@
+package com.amazon.ata.designcomposition;
+
+import java.util.List;
+
+public class BestAnswerAlexaQAClient extends AlexaQAClient {
+
+    // Finds the best answer based on the answer quality
+    public AlexaAnswer findBestAnswer(AlexaQuestion question) {
+        List<AlexaAnswer> answers = getAnswersForQuestion(question); // Assuming this method exists
+        return answers.stream()
+                .max((a1, a2) -> Double.compare(a1.getQualityScore(), a2.getQualityScore()))
+                .orElse(null); // Return null if no answers are found
+    }
+
+    // Submits multiple answer suggestions for a single question
+    public void submitQuestionAnswerSuggestions(AlexaQuestion question, List<AlexaAnswer> answers) {
+        for (AlexaAnswer answer : answers) {
+            submitQuestionAnswerSuggestion(question, answer); // Assuming this method exists
+        }
+    }
+}
